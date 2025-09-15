@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigationItems } from '@/data/portfolio';
-import ThemeToggle from './ThemeToggle';
+import { ModeToggle } from './ThemeToggle';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-foreground hover:text-orange transition-colors duration-300"
             >
-              <span className="text-orange">#</span>nashnc
+              <span className="text-orange">#</span>Rithy Reach
             </button>
           </motion.div>
 
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
 
           {/* Theme Toggle */}
           <div className="flex items-center">
-            <ThemeToggle />
+            <ModeToggle />
           </div>
         </div>
       </div>

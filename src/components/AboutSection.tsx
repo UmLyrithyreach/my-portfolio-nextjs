@@ -46,16 +46,17 @@ const AboutSection: React.FC = () => {
             </h3>
 
             <div className="space-y-6 text-muted-foreground leading-relaxed">
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                I&apos;m an aspiring web developer with a strong foundation in the{' '}
-                <span className="text-orange font-semibold">MERN stack</span>. As a recent full-stack development trainee,
-                I&apos;m eager to apply my skills to real-world projects and grow into a confident, industry-ready developer.
-              </motion.p>
+                <p
+                  className="space-y-6"
+                  dangerouslySetInnerHTML={{__html: personalInfo.aboutText}}
+                />
+              </motion.div>
 
               <AnimatePresence>
                 {isExpanded && (

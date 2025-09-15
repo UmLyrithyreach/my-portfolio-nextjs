@@ -1,14 +1,24 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { personalInfo } from '@/data/portfolio';
+import React from "react";
+import { motion } from "framer-motion";
+import { personalInfo } from "@/data/portfolio";
+import Typewriter from "typewriter-effect";
+import { useInMobile } from "./hooks/useInMobile";
+import Image from "next/image";
+import useIsDark from "./hooks/useIsDark";
 
 const HeroSection: React.FC = () => {
+  const isMobile = useInMobile(768);
+  const isDark = useIsDark();
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0"
+    >
       {/* Background geometric shapes */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none -z-10">
         {/* Floating dots pattern */}
         <div className="absolute top-20 right-20 w-32 h-32 opacity-20">
           <div className="grid grid-cols-8 gap-2">
@@ -24,7 +34,7 @@ const HeroSection: React.FC = () => {
                   duration: 3,
                   delay: i * 0.05,
                   repeat: Infinity,
-                  repeatType: 'reverse',
+                  repeatType: "reverse",
                 }}
               />
             ))}
@@ -40,7 +50,7 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: 'linear',
+            ease: "linear",
           }}
         />
 
@@ -54,7 +64,7 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
 
@@ -67,16 +77,147 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 6,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
       </div>
 
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-6 py-8 md:py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Profile Image with Geometric Background - Mobile First */}
+          <motion.div
+            className="relative flex justify-center lg:justify-end order-1 lg:order-2"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="relative">
+              {/* Large orange triangle background */}
+              <motion.div
+                className="absolute -top-10 -left-10 w-0 h-0 border-l-[150px] border-l-transparent border-r-[150px] border-r-transparent border-b-[200px] border-b-orange opacity-90"
+                animate={{
+                  rotate: [0, 5, -5, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.15 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                viewport={{ amount: 0.3 }}
+              >
+                {!isMobile ? (
+                  <>
+                    {/* Desktop Profile Image */}
+                    <div className="flex items-end">
+                      {isDark ? (
+                        <motion.div
+                          className="w-100 h-100"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.8, delay: 0.4 }}
+                        >
+                          <div>
+                            <Image
+                              src="/Dark_Card.PNG"
+                              alt="Lyrithyreach"
+                              width={200}
+                              height={200}
+                              className="rounded-xl"
+                            />
+                          </div>
+
+                          <motion.div
+                            className="absolute top-[10px] left-1/2 translate-x-1/2 rounded-xl"
+                          >
+                            <Image
+                              src="/LyrithyreachUm_Dark.PNG"
+                              alt="Lyrithyreach"
+                              fill
+                              className="rounded-xl scale-200"
+                            />
+                          </motion.div>
+                        </motion.div>
+                      ) : (
+                        <div
+                          className="flex justify-center"
+                        >
+                          <Image
+                            src="/Landing.PNG"
+                            alt="Lyrithyreach"
+                            width={200}
+                            height={200}
+                            className="rounded-xl scale-300"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Mobile Profile Image */}
+                    {isDark ? (
+                      <div className="absolute -top-[20px] left-[calc(50%+25px)] -translate-x-1/2 z-20">
+                        <Image
+                          src="/LandingPageProfile.PNG"
+                          alt="Lyrithyreach"
+                          width={300}
+                          height={300}
+                          className="scale-100"
+                        />
+                      </div>
+                    ) : (
+                      <div className="absolute top-[72.3px] left-[calc(50%+20px)] -translate-x-1/2 z-20">
+                        <Image
+                          src="/LandingPageProfile.PNG"
+                          alt="Lyrithyreach"
+                          width={300}
+                          height={300}
+                          className="rounded-3xl scale-100"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </motion.div>
+
+              {/* Floating geometric elements around image */}
+              <motion.div
+                className="absolute -top-5 -right-5 w-8 h-8 bg-orange rounded-full"
+                animate={{
+                  y: [-10, 10, -10],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              <motion.div
+                className="absolute -bottom-5 -left-5 w-6 h-6 border-2 border-orange rotate-45"
+                animate={{
+                  rotate: [45, 135, 45],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </div>
+          </motion.div>
+
           {/* Text Content */}
           <motion.div
-            className="space-y-6"
+            className="space-y-6 order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -87,10 +228,19 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Hey, I&apos;m {personalInfo.name}, an{' '}
+              Hey, I&apos;m {personalInfo.name}, an{" "}
               <span className="block">intuitive</span>
-              <span className="text-orange gradient-text">
-                {personalInfo.title.toLowerCase()}
+              <span className="text-orange font-bold">
+                <Typewriter
+                  options={{
+                    strings: [personalInfo.title],
+                    autoStart: true,
+                    loop: true,
+                    delay: 80,
+                    cursor: "_",
+                    deleteSpeed: 30,
+                  }}
+                />
               </span>
             </motion.h1>
 
@@ -120,71 +270,6 @@ const HeroSection: React.FC = () => {
             >
               {personalInfo.callToAction}
             </motion.p>
-          </motion.div>
-
-          {/* Profile Image with Geometric Background */}
-          <motion.div
-            className="relative flex justify-center lg:justify-end"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="relative">
-              {/* Large orange triangle background */}
-              <motion.div
-                className="absolute -top-10 -left-10 w-0 h-0 border-l-[150px] border-l-transparent border-r-[150px] border-r-transparent border-b-[200px] border-b-orange opacity-90 z-0"
-                animate={{
-                  rotate: [0, 5, -5, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-
-              {/* Profile image placeholder */}
-              <motion.div
-                className="relative z-10 w-80 h-80 bg-gradient-to-br from-orange to-orange/70 rounded-2xl overflow-hidden shadow-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/20" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="text-white text-lg font-semibold">
-                    {personalInfo.name}
-                  </div>
-                  <div className="text-white/80 text-sm">
-                    {personalInfo.title}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating geometric elements around image */}
-              <motion.div
-                className="absolute -top-5 -right-5 w-8 h-8 bg-orange rounded-full"
-                animate={{
-                  y: [-10, 10, -10],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-
-              <motion.div
-                className="absolute -bottom-5 -left-5 w-6 h-6 border-2 border-orange rotate-45"
-                animate={{
-                  rotate: [45, 135, 45],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-            </div>
           </motion.div>
         </div>
       </div>

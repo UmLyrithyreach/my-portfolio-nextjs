@@ -9,21 +9,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Nash - Web Developer Portfolio",
-  description: "I'm Nash, an aspiring web developer with a strong foundation in the MERN stack. I develop responsive and interactive websites that are coherent to your needs.",
-  keywords: ["Nash", "Web Developer", "MERN Stack", "React", "Next.js", "TypeScript", "Portfolio"],
-  authors: [{ name: "Nash" }],
-  creator: "Nash",
+  title: "Reach - Web Developer Portfolio",
+  description: "I'm Reach, an aspiring web developer with a strong foundation in the MERN stack. I develop responsive and interactive websites that are coherent to your needs.",
+  keywords: ["Reach", "Web Developer", "MERN Stack", "React", "Next.js", "TypeScript", "Portfolio"],
+  authors: [{ name: "Reach" }],
+  creator: "Reach",
   openGraph: {
-    title: "Nash - Web Developer Portfolio",
-    description: "I'm Nash, an aspiring web developer with a strong foundation in the MERN stack.",
+    title: "Reach - Web Developer Portfolio",
+    description: "I'm Reach, an aspiring web developer with a strong foundation in the MERN stack.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nash - Web Developer Portfolio",
-    description: "I'm Nash, an aspiring web developer with a strong foundation in the MERN stack.",
+    title: "Reach - Web Developer Portfolio",
+    description: "I'm Reach, an aspiring web developer with a strong foundation in the MERN stack.",
   },
   robots: {
     index: true,
@@ -39,10 +39,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/nashdarklogo.svg" type="image/svg+xml" />
+        <link rel="icon" href="/next.svg" type="image/svg+xml" />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>

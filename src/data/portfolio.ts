@@ -1,83 +1,96 @@
-import { NavigationItem, Project, Skill, ContactInfo, SocialLink } from '@/types';
+import {
+  NavigationItem,
+  Project,
+  Skill,
+  ContactInfo,
+  SocialLink,
+} from "@/types";
 
 export const navigationItems: NavigationItem[] = [
-  { name: 'home', href: '#home', label: 'Home' },
-  { name: 'about', href: '#about', label: 'About' },
-  { name: 'works', href: '#works', label: 'Works' },
-  { name: 'contact', href: '#contact', label: 'Contact' },
+  { name: "home", href: "#home", label: "Home" },
+  { name: "about", href: "#about", label: "About" },
+  { name: "works", href: "#works", label: "Works" },
+  { name: "contact", href: "#contact", label: "Contact" },
+  { name: "footer", href: "#footer", label: "Footer" },
 ];
 
 export const projects: Project[] = [
   {
-    id: 'portfolio-2',
-    title: 'Portfolio 2.0',
-    description: 'The portfolio you are viewing right now',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    id: "portfolio-2",
+    title: "Portfolio 2.0",
+    description: "The portfolio you are viewing right now",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    liveUrl: "https://your-portfolio-url.com",
+    githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
   },
   {
-    id: 'ott-streaming',
-    title: 'OTT Streaming Platform',
-    description: 'Users can stream movies',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+    id: "ott-streaming",
+    title: "OTT Streaming Platform",
+    description: "Users can stream movies",
+    technologies: ["React", "Node.js", "MongoDB", "Express"],
+    githubUrl: "https://github.com/UmLyrithyreach/ott-streaming",
   },
   {
-    id: 'warehouse-stocking',
-    title: 'Warehouse Stocking',
-    description: 'A website to save and display Stock',
-    technologies: ['React', 'Firebase', 'Material-UI'],
+    id: "warehouse-stocking",
+    title: "Warehouse Stocking",
+    description: "A website to save and display Stock",
+    technologies: ["React", "Firebase", "Material-UI"],
+    githubUrl: "https://github.com/UmLyrithyreach/warehouse-stocking",
   },
 ];
 
 export const skills: Skill[] = [
-  { name: 'MongoDB', icon: '🍃', category: 'database' },
-  { name: 'Express.js', icon: 'ex', category: 'backend' },
-  { name: 'React', icon: '⚛️', category: 'frontend' },
-  { name: 'Node.js', icon: '🟢', category: 'backend' },
-  { name: 'TypeScript', icon: '🔧', category: 'frontend' },
-  { name: 'Tailwind CSS', icon: '🌊', category: 'frontend' },
+  { name: "PostgreSQL", category: "database" },
+  { name: "Express.js", category: "backend" },
+  { name: "React", category: "frontend" },
+  { name: "Node.js", category: "backend" },
+  { name: "TypeScript", category: "frontend" },
+  { name: "Tailwind CSS", category: "frontend" },
 ];
 
 export const contactInfo: ContactInfo[] = [
   {
-    platform: 'Telegram',
-    username: '@nashnc11',
-    url: 'https://t.me/nashnc11',
-    icon: '✈️',
+    platform: "Telegram",
+    username: "@Durian_Lover67",
+    url: "https://t.me/Durian_Lover67",
   },
   {
-    platform: 'Discord',
-    username: 'nashnc11',
-    url: '#',
-    icon: '🎮',
+    platform: "Discord",
+    username: "kaizen0734",
+    url: "https://discord.com/users/kaizen0734",
   },
   {
-    platform: 'Email',
-    username: 'nash.nc@gmail.com',
-    url: 'mailto:nash.nc@gmail.com',
-    icon: '✉️',
+    platform: "Email",
+    username: "umlyrithyreach@gmail.com",
+    url: "mailto:umlyrithyreach@gmail.com",
   },
 ];
 
 export const socialLinks: SocialLink[] = [
   {
-    name: 'GitHub',
-    url: 'https://github.com/nashnc',
-    icon: '🐙',
+    name: "GitHub",
+    url: "https://github.com/UmLyrithyreach",
   },
   {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/in/nashnc',
-    icon: '💼',
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/lyrithyreach-um-848513364",
   },
 ];
 
 export const personalInfo = {
-  name: 'Avinash',
-  nickname: 'Nash',
-  title: 'Web Developer',
-  description: 'who develops responsive and interactive websites that are coherent to your needs.',
-  specialization: 'I specialize in Front End Development and Full Stack (trained in MERN stack development).',
-  callToAction: "Let us craft user-friendly websites together!",
-  aboutText: `I'm an aspiring web developer with a strong foundation in the MERN stack. As a recent full-stack development trainee, I'm eager to apply my skills to real-world projects and grow into a confident, industry-ready developer. While I've trained across the full stack, I'm especially passionate about front-end development and creating clean, responsive, and engaging user experiences. I'm constantly learning, building side projects, and staying updated with the latest web development trends. I'm excited to join a team where I can contribute, learn from experienced developers, and sharpen my skills every day.`,
-  connectText: "I'm looking forward to being a part of your team! Let me help you develop your ideas into an internet reality.",
+  name: "Um Lyrithyreach",
+  nickname: "Reach or Kaizen",
+  title: "Web Developer",
+  description: "Learn and develop responsive web applications to your needs.",
+  specialization:
+    "I'm a sophomore of Computer Science specialized in Software Development. I'm capable of creating Frond End designs and do a FULL stack projects. (Currently studying on PERN AND MERN stacks)",
+  callToAction: "Let's create a user-friendly website together!",
+  aboutText: `
+    I'm an aspiring web developer with a strong foundation in using React and Next js, while also some knowledge in 
+    <span class="text-orange-500">PERN</span> AND <span class="text-orange-500">MERN</span> stacks) stacks. 
+    Recently I have built a full stacks project using React, Next js, Node js, Express js, and PostgreSQL. I'm eager 
+    to make use of my knowledge in a real-world projects and grow into a confident web developer.
+    `,
+  connectText:
+    "I'm looking forward to being a part of your team! Let me help you develop your ideas into an internet reality.",
 };

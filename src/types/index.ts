@@ -16,7 +16,6 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  icon: string;
   category: 'frontend' | 'backend' | 'database' | 'tools';
 }
 
@@ -24,13 +23,11 @@ export interface ContactInfo {
   platform: string;
   username: string;
   url: string;
-  icon: string;
 }
 
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string;
 }
 
 export interface ThemeContextType {
