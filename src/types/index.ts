@@ -12,7 +12,9 @@ export interface Project {
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
+  features?: string[];
   category?: string;
+  status?: string;
 }
 
 export interface Skill {

@@ -22,26 +22,93 @@ export const projects: Project[] = [
     image: "/projects/portfolio.png",
     liveUrl: "https://your-portfolio-url.com",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
-    category: "web-app",
+    category: "Frontend Web Application",
+    status: "Completed",
+    features: [
+      "A modern, responsive portfolio website built with Next.js and TypeScript.",
+      "Utilizes Tailwind CSS for styling and Framer Motion for animations.",
+      "Features a clean and intuitive user interface.",
+      "Hosted on Vercel for fast and scalable deployment.",
+    ],
   },
   {
-    id: "ott-streaming",
-    title: "OTT Streaming Platform",
-    description: "Users can stream movies",
-    image: "/projects/ott-streaming.png",
-    technologies: ["React", "Node.js", "MongoDB", "Express"],
-    githubUrl: "https://github.com/UmLyrithyreach/ott-streaming",
-    category: "web-app",
+    id: "automata-simulation",
+    title: "Automata Simulation",
+    description: "Welcome to the Automata Simulator, a full-stack web application designed to simulate and visualize Finite Automata. This comprehensive tool allows you to create, edit, and test both Deterministic Finite Automata (DFA) and Non-Deterministic Finite Automata (NFA).",
+    image: "/projects/automata-project.png",
+    technologies: 
+    [
+      // FrontEnd
+      "React",
+      "Vite",
+      "CSS",
+      "TailwindCSS",
+      "Heroicons",
+
+      // BackEnd
+      "Node.js",
+      "Express.js",
+      "Axios",
+      "SQLite",
+      "Sequelize",
+        // CPP Areas
+        "C++17",
+        "nlohmann/json",
+      
+      // Version Control
+      "Git",
+      "GitHub",
+    ],
+    githubUrl: "https://github.com/ShurikenBy6YoungTechStudents/automata-project.git",
+    category: "Full-Stack Web Application",
+    status: "Completed",
+    features: [
+      "A full-stack web application that simulates and visualizes Finite Automata.",
+      "Supports both Deterministic Finite Automata (DFA) and Non-Deterministic Finite Automata (NFA).",
+      "Allows users to create, edit, and test automata models.",
+      "Provides real-time visualization of the automata's behavior.",
+      "Supports exporting automata models as JSON files.",
+    ],
   },
+
   {
-    id: "warehouse-stocking",
-    title: "Warehouse Stocking",
-    description: "A website to save and display Stock",
-    image: "/projects/warehouse-stocking.png",
-    technologies: ["React", "Firebase", "Material-UI"],
-    githubUrl: "https://github.com/UmLyrithyreach/warehouse-stocking",
-    category: "web-app",
-  },
+  id: "KhodKquiz",
+  title: "KhodKquiz",
+  description: "Academic Project - Full-Stack Web Development Cambodia Academy of Digital Technology. A comprehensive, enterprise-grade quiz application demonstrating modern web development practices, advanced database design, and professional software architecture. Built with React 19, Node.js, and PostgreSQL, featuring complete role-based access control, real-time analytics, and advanced admin management capabilities.",
+  image: "/projects/KhodKquiz.png",
+  technologies: [
+    // Frontend
+    "React", 
+    "Tailwind CSS", 
+    "Framer Motion",
+    "React Router",
+    "Axios",
+    "Lucide React",
+    
+    // Backend
+    "Node.js",
+    "Express.js", 
+    "PostgreSQL", 
+    "Sequelize", 
+    "JWT", 
+    "bcrypt",
+    
+    // Development
+    "Vite",
+    "ESLint"
+  ],
+  githubUrl: "https://github.com/PhaySometh/KhodKquiz.git",
+  category: "Full-Stack Web Application",
+  // Optional additional fields based on your architecture
+  features: [
+    "User Authentication & Authorization",
+    "Real-time Stock Management",
+    "PostgreSQL Database Integration", 
+    "Responsive Design",
+    "RESTful API Architecture"
+  ],
+  status: "Completed" // or "In Development"
+}
 ];
 
 export const skills: Skill[] = [

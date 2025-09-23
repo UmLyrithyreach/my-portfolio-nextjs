@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data/portfolio';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Code, Zap, Eye, Calendar, ImageIcon } from 'lucide-react';
+import { ExternalLink, Github, Code, Zap, Eye, Calendar, ImageIcon, CheckCircle, Clock, Play, Pause } from 'lucide-react';
 import { useInMobile } from './hooks/useInMobile';
 import Image from 'next/image';
 
@@ -13,9 +14,53 @@ const WorksSection: React.FC = () => {
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
+  const [showAllFeatures, setShowAllFeatures] = useState<Set<number>>(new Set());
 
   const handleImageError = (projectId: string) => {
     setImageErrors(prev => new Set([...prev, projectId]));
+  };
+
+  const toggleFeatures = (projectIndex: number) => {
+    setShowAllFeatures(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(projectIndex)) {
+        newSet.delete(projectIndex);
+      } else {
+        newSet.add(projectIndex);
+      }
+      return newSet;
+    });
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'completed':
+        return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case 'in development':
+      case 'in progress':
+        return <Clock className="w-4 h-4 text-yellow-500" />;
+      case 'live':
+        return <Play className="w-4 h-4 text-green-500" />;
+      case 'paused':
+        return <Pause className="w-4 h-4 text-orange-500" />;
+      default:
+        return <Code className="w-4 h-4 text-blue-500" />;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'completed':
+      case 'live':
+        return 'bg-green-500/10 text-green-500 border-green-500/20';
+      case 'in development':
+      case 'in progress':
+        return 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
+      case 'paused':
+        return 'bg-orange-500/10 text-orange-500 border-orange-500/20';
+      default:
+        return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
+    }
   };
 
   const ProjectPreviewImage = ({ project, index }: { project: any, index: number }) => {
@@ -28,7 +73,7 @@ const WorksSection: React.FC = () => {
             src={project.image}
             alt={`${project.title} preview`}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-fit transition-transform duration-500 group-hover:scale-105"
             onError={() => handleImageError(project.id)}
           />
           {/* Overlay */}
@@ -39,6 +84,15 @@ const WorksSection: React.FC = () => {
             <div className="text-white text-sm font-medium mb-1">{project.title}</div>
             <div className="text-white/80 text-xs">{project.technologies[0]}</div>
           </div>
+
+          {/* Status Badge on Image */}
+          {project.status && (
+            <div className="absolute top-4 right-4">
+              <div className={`px-2 py-1 text-xs rounded-full font-medium border backdrop-blur-sm ${getStatusColor(project.status)}`}>
+                {project.status}
+              </div>
+            </div>
+          )}
         </div>
       );
     }
@@ -62,6 +116,15 @@ const WorksSection: React.FC = () => {
           <div className="text-orange text-sm font-medium mb-1">{project.title}</div>
           <div className="text-orange/80 text-xs">{project.technologies[0]}</div>
         </div>
+
+        {/* Status Badge */}
+        {project.status && (
+          <div className="absolute top-4 right-4">
+            <div className={`px-2 py-1 text-xs rounded-full font-medium border ${getStatusColor(project.status)}`}>
+              {project.status}
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -131,6 +194,15 @@ const WorksSection: React.FC = () => {
                         Project {String(index + 1).padStart(2, '0')}
                       </span>
                       <span className="text-xs text-muted-foreground">2024</span>
+                      {/* Status indicator */}
+                      {project.status && (
+                        <div className="flex items-center space-x-1">
+                          {getStatusIcon(project.status)}
+                          <span className={`text-xs px-2 py-0.5 rounded-full border ${getStatusColor(project.status)}`}>
+                            {project.status}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <h3 className={`text-xl font-bold transition-colors duration-300 ${hoveredProject === index ? 'text-orange' : 'text-foreground'
                       }`}>
@@ -149,10 +221,46 @@ const WorksSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Rest of your existing project card content... */}
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {project.description}
                 </p>
+
+                {/* Features Section */}
+                {project.features && project.features.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="w-4 h-4 text-orange" />
+                        <span className="text-sm font-medium text-foreground">Key Features</span>
+                      </div>
+                      {project.features.length > 3 && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFeatures(index);
+                          }}
+                          className="text-xs text-orange hover:text-orange/80 transition-colors"
+                        >
+                          {showAllFeatures.has(index) ? 'Show less' : `+${project.features.length - 3} more`}
+                        </button>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      {project.features.slice(0, showAllFeatures.has(index) ? undefined : 3).map((feature: string, idx: number) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className="flex items-start text-sm text-muted-foreground"
+                        >
+                          <div className="w-1.5 h-1.5 bg-orange rounded-full mr-2 mt-1.5 flex-shrink-0" />
+                          <span className="leading-tight">{feature}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.slice(0, 3).map((tech) => (
@@ -262,9 +370,9 @@ const WorksSection: React.FC = () => {
                     </motion.div>
                   </div>
 
-                  {/* Project Stats */}
+                  {/* Enhanced Project Stats */}
                   <motion.div
-                    className="mt-6 grid grid-cols-3 gap-4"
+                    className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.2 }}
@@ -280,11 +388,18 @@ const WorksSection: React.FC = () => {
                       <div className="text-xs text-muted-foreground">Year</div>
                     </div>
                     <div className="text-center p-4 bg-card rounded-xl border border-border">
-                      <Zap className="w-5 h-5 text-orange mx-auto mb-2" />
-                      <div className="text-sm font-medium">
-                        {projects[hoveredProject].liveUrl ? 'Live' : 'Dev'}
+                      {getStatusIcon(projects[hoveredProject].status || 'Active')}
+                      <div className="text-sm font-medium mt-2">
+                        {projects[hoveredProject].status || 'Active'}
                       </div>
                       <div className="text-xs text-muted-foreground">Status</div>
+                    </div>
+                    <div className="text-center p-4 bg-card rounded-xl border border-border">
+                      <CheckCircle className="w-5 h-5 text-orange mx-auto mb-2" />
+                      <div className="text-sm font-medium">
+                        {projects[hoveredProject].features?.length || 0}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Features</div>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -312,7 +427,7 @@ const WorksSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Enhanced Project Modal with Full Image Display */}
+        {/* Enhanced Project Modal */}
         <AnimatePresence>
           {activeProject !== null && (
             <motion.div
@@ -330,15 +445,25 @@ const WorksSection: React.FC = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">{projects[activeProject].title}</h3>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h3 className="text-2xl font-bold">{projects[activeProject].title}</h3>
+                      {projects[activeProject].status && (
+                        <div className="flex items-center space-x-2">
+                          {getStatusIcon(projects[activeProject].status)}
+                          <span className={`px-3 py-1 text-sm rounded-full border ${getStatusColor(projects[activeProject].status)}`}>
+                            {projects[activeProject].status}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-muted-foreground">{projects[activeProject].description}</p>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setActiveProject(null)}
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground ml-4"
                   >
                     ✕
                   </Button>
@@ -357,18 +482,48 @@ const WorksSection: React.FC = () => {
                   </div>
                 )}
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-3">Technologies Used</h4>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {projects[activeProject].technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 text-sm bg-orange/10 text-orange rounded-lg border border-orange/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    {/* Features Section */}
+                    {projects[activeProject].features && projects[activeProject].features.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <CheckCircle className="w-5 h-5 text-orange mr-2" />
+                          Key Features
+                        </h4>
+                        <div className="space-y-2">
+                          {projects[activeProject].features.map((feature: string, idx: number) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                              className="flex items-start text-sm text-muted-foreground"
+                            >
+                              <div className="w-2 h-2 bg-orange rounded-full mr-3 mt-1.5 flex-shrink-0" />
+                              <span className="leading-relaxed">{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Technologies */}
+                    <div>
+                      <h4 className="font-semibold mb-3 flex items-center">
+                        <Code className="w-5 h-5 text-orange mr-2" />
+                        Technologies Used
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[activeProject].technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 text-sm bg-orange/10 text-orange rounded-lg border border-orange/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -407,7 +562,7 @@ const WorksSection: React.FC = () => {
           <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Impressed by what you see?</h3>
             <p className="text-muted-foreground mb-6">
-              ${`These projects represent just a glimpse of what's possible. Let's collaborate and create something extraordinary together.`}
+              {`These projects represent just a glimpse of what's possible. Let's collaborate and create something extraordinary together.`}
             </p>
             <Button className="bg-orange hover:bg-orange/90 text-white px-8 py-3" asChild>
               <a href="#contact">Let&apos;s Build Something Amazing</a>
