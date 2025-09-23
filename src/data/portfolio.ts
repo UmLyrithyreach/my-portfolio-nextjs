@@ -11,7 +11,6 @@ export const navigationItems: NavigationItem[] = [
   { name: "about", href: "#about", label: "About" },
   { name: "works", href: "#works", label: "Works" },
   { name: "contact", href: "#contact", label: "Contact" },
-  { name: "footer", href: "#footer", label: "Footer" },
 ];
 
 export const projects: Project[] = [
@@ -19,23 +18,29 @@ export const projects: Project[] = [
     id: "portfolio-2",
     title: "Portfolio 2.0",
     description: "The portfolio you are viewing right now",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "ShadCN"],
+    image: "/projects/portfolio.png",
     liveUrl: "https://your-portfolio-url.com",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
+    category: "web-app",
   },
   {
     id: "ott-streaming",
     title: "OTT Streaming Platform",
     description: "Users can stream movies",
+    image: "/projects/ott-streaming.png",
     technologies: ["React", "Node.js", "MongoDB", "Express"],
     githubUrl: "https://github.com/UmLyrithyreach/ott-streaming",
+    category: "web-app",
   },
   {
     id: "warehouse-stocking",
     title: "Warehouse Stocking",
     description: "A website to save and display Stock",
+    image: "/projects/warehouse-stocking.png",
     technologies: ["React", "Firebase", "Material-UI"],
     githubUrl: "https://github.com/UmLyrithyreach/warehouse-stocking",
+    category: "web-app",
   },
 ];
 

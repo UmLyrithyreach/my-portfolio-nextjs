@@ -157,7 +157,7 @@ const ContactSection: React.FC = () => {
                   asChild
                 >
                   <a href="#" className="flex items-center justify-center space-x-2">
-                    <span>Other ...</span>
+                    <span>Home</span>
                   </a>
                 </Button>
               </motion.div>
