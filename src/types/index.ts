@@ -13,7 +13,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   features?: string[];
-  category?: string;
+  category?: string[];
   status?: string;
 }
 

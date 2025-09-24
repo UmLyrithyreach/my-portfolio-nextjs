@@ -152,7 +152,7 @@ const WorksSection: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
           {/* Left Side - Project List */}
           <div className="space-y-4">
-            {projects.map((project, index) => (
+            {projects.slice(0, 2).map((project, index) => (
               <motion.div
                 key={project.id}
                 className={`group relative p-6 rounded-2xl border transition-all duration-500 cursor-pointer ${hoveredProject === index
@@ -550,6 +550,23 @@ const WorksSection: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* View All Projects Button */}
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <Button
+            variant="outline"
+            className="border-orange text-orange hover:bg-orange hover:text-white px-8 py-3"
+            asChild
+          >
+            <a href="/projects">View All Projects ({projects.length})</a>
+          </Button>
+        </motion.div>
 
         {/* Call to Action */}
         <motion.div

@@ -22,8 +22,8 @@ export const projects: Project[] = [
     image: "/projects/portfolio.png",
     liveUrl: "https://your-portfolio-url.com",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
-    category: "Frontend Web Application",
-    status: "Completed",
+    category: ["Frontend Web Application"],
+    status: "In Progress",
     features: [
       "A modern, responsive portfolio website built with Next.js and TypeScript.",
       "Utilizes Tailwind CSS for styling and Framer Motion for animations.",
@@ -60,7 +60,7 @@ export const projects: Project[] = [
       "GitHub",
     ],
     githubUrl: "https://github.com/ShurikenBy6YoungTechStudents/automata-project.git",
-    category: "Full-Stack Web Application",
+    category: ["Full-Stack Web Application"],
     status: "Completed",
     features: [
       "A full-stack web application that simulates and visualizes Finite Automata.",
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     "ESLint"
   ],
   githubUrl: "https://github.com/PhaySometh/KhodKquiz.git",
-  category: "Full-Stack Web Application",
+  category: ["Full-Stack Web Application"],
   // Optional additional fields based on your architecture
   features: [
     "User Authentication & Authorization",
@@ -135,6 +135,16 @@ export const contactInfo: ContactInfo[] = [
     platform: "Email",
     username: "umlyrithyreach@gmail.com",
     url: "mailto:umlyrithyreach@gmail.com",
+  },
+  {
+    platform: "Facebook",
+    username: "lyrithyreach.um",
+    url: "https://www.facebook.com/lyrithyreach.um",
+  },
+  {
+    platform: "Instagram",
+    username: "_.rithyreach._",
+    url: "https://www.instagram.com/_.rithyreach._/",
   },
 ];
 

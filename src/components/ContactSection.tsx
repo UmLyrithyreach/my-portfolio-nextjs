@@ -1,186 +1,688 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { contactInfo, personalInfo } from '@/data/portfolio';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { contactInfo, personalInfo, socialLinks } from '@/data/portfolio';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import emailjs from '@emailjs/browser';
+
+
+import {
+  Mail,
+  Send,
+  ExternalLink,
+  Copy,
+  Check,
+  Github,
+  Linkedin,
+  Phone,
+  MapPin,
+  Clock,
+  MessageCircle,
+  ArrowRight,
+  Zap,
+  Heart,
+  Star
+} from 'lucide-react';
+
+interface ContactMethod {
+  platform: string;
+  username: string;
+  url: string;
+  icon: React.ReactNode;
+  color: string;
+  description: string;
+  priority: 'high' | 'medium' | 'low';
+}
+
+interface SocialPlatform {
+  name: string;
+  url: string;
+  icon: React.ReactNode;
+  color: string;
+}
 
 const ContactSection: React.FC = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  const [copiedText, setCopiedText] = useState<string>('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
-  const getContactIcon = (platform: string) => {
-    switch (platform.toLowerCase()) {
-      case 'telegram':
-        return (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16l-1.61 7.59c-.12.54-.44.67-.89.42l-2.46-1.81-1.19 1.14c-.13.13-.24.24-.49.24l.17-2.43 4.47-4.03c.19-.17-.04-.27-.3-.1L9.28 13.47l-2.38-.75c-.52-.16-.53-.52.11-.77l9.28-3.58c.43-.16.81.11.67.77z" />
-          </svg>
-        );
-      case 'discord':
-        return (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-          </svg>
-        );
-      case 'email':
-        return (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-        );
-      default:
-        return (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-            <line x1="9" y1="9" x2="9.01" y2="9" />
-            <line x1="15" y1="9" x2="15.01" y2="9" />
-          </svg>
-        );
+  const handleCopy = async (text: string, platform: string): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedText(platform);
+      setTimeout(() => setCopiedText(''), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
     }
   };
 
+  React.useEffect(() => {
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+  }, []);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Check environment variables first
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    console.log('Environment check:', {
+      serviceId: serviceId ? '✅ Set' : '❌ Missing',
+      templateId: templateId ? '✅ Set' : '❌ Missing',
+      publicKey: publicKey ? '✅ Set' : '❌ Missing'
+    });
+
+    if (!serviceId || !templateId || !publicKey) {
+      alert('❌ EmailJS configuration is missing. Please check environment variables.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      console.log('Sending email with data:', {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message.substring(0, 50) + '...'
+      });
+
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          sent_date: new Date().toLocaleString()
+        },
+        publicKey
+      );
+
+      console.log('✅ EmailJS Success:', result);
+      alert('✅ Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+
+    } catch (error: any) {
+      console.error('❌ EmailJS Error Details:', {
+        error: error,
+        message: error?.message || 'Unknown error',
+        text: error?.text || 'No error text',
+        status: error?.status || 'No status'
+      });
+
+      let errorMessage = 'Failed to send message. ';
+
+      if (error?.status === 400) {
+        errorMessage += 'Invalid request. Check your EmailJS template variables.';
+      } else if (error?.status === 403) {
+        errorMessage += 'Access denied. Check your EmailJS public key.';
+      } else if (error?.text) {
+        errorMessage += error.text;
+      } else if (error?.message) {
+        errorMessage += error.message;
+      } else {
+        errorMessage += 'Please check your internet connection and try again.';
+      }
+
+      alert(`❌ ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const getContactIcon = (platform: string): React.ReactNode => {
+    switch (platform.toLowerCase()) {
+      case 'telegram':
+        return <Send className="w-5 h-5" />;
+      case 'discord':
+        return <FontAwesomeIcon icon={faDiscord} className="w-5 h-5" />;
+      case 'email':
+        return <Mail className="w-5 h-5" />;
+      case 'facebook':
+        return <FontAwesomeIcon icon={faFacebook} className="w-5 h-5" />;
+      case 'instagram':
+        return <FontAwesomeIcon icon={faInstagram} className="w-5 h-5" />;
+      default:
+        return <Phone className="w-5 h-5" />;
+    }
+  };
+
+  const getContactColor = (platform: string): string => {
+    switch (platform.toLowerCase()) {
+      case 'telegram':
+        return 'from-blue-500 to-blue-600';
+      case 'discord':
+        return 'from-indigo-500 to-purple-600';
+      case 'email':
+        return 'from-red-500 to-pink-600';
+      case 'facebook':
+        return 'from-blue-500 to-blue-600';
+      case 'instagram':
+        return 'from-pink-500 to-purple-600';
+      default:
+        return 'from-gray-500 to-gray-600';
+    }
+  };
+
+  const getContactDescription = (platform: string): string => {
+    switch (platform.toLowerCase()) {
+      case 'telegram':
+        return 'Quick messaging';
+      case 'discord':
+        return 'Voice & chat';
+      case 'email':
+        return 'Professional';
+      case 'facebook':
+        return 'Social updates';
+      case 'instagram':
+        return 'Visual content';
+      default:
+        return 'Get in touch';
+    }
+  };
+
+  const getPriority = (platform: string): 'high' | 'medium' | 'low' => {
+    switch (platform.toLowerCase()) {
+      case 'email':
+      case 'telegram':
+        return 'high';
+      case 'discord':
+        return 'medium';
+      default:
+        return 'low';
+    }
+  };
+
+  const contactMethods: ContactMethod[] = contactInfo.map(contact => ({
+    ...contact,
+    icon: getContactIcon(contact.platform),
+    color: getContactColor(contact.platform),
+    description: getContactDescription(contact.platform),
+    priority: getPriority(contact.platform)
+  })).sort((a, b) => {
+    const priorityOrder = { high: 0, medium: 1, low: 2 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
+  const getSocialIcon = (name: string): React.ReactNode => {
+    switch (name.toLowerCase()) {
+      case 'github':
+        return <Github className="w-4 h-4" />;
+      case 'linkedin':
+        return <Linkedin className="w-4 h-4" />;
+      case 'facebook':
+        return <FontAwesomeIcon icon={faFacebook} className="w-4 h-4" />;
+      case 'instagram':
+        return <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />;
+      default:
+        return <Github className="w-4 h-4" />;
+    }
+  };
+
+  const getSocialColor = (name: string): string => {
+    switch (name.toLowerCase()) {
+      case 'github':
+        return 'hover:bg-gray-100 dark:hover:bg-gray-800';
+      case 'linkedin':
+        return 'hover:bg-blue-50 dark:hover:bg-blue-900/20';
+      case 'facebook':
+        return 'hover:bg-blue-50 dark:hover:bg-blue-900/20';
+      case 'instagram':
+        return 'hover:bg-pink-50 dark:hover:bg-pink-900/20';
+      default:
+        return 'hover:bg-gray-50 dark:hover:bg-gray-800';
+    }
+  };
+
+  const socialPlatforms: SocialPlatform[] = socialLinks.map(social => ({
+    ...social,
+    icon: getSocialIcon(social.name),
+    color: getSocialColor(social.name)
+  }));
+
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-orange">#</span>contact
-          </h2>
-          <div className="flex items-center space-x-4">
-            <div className="h-0.5 bg-orange w-16"></div>
-            <div className="h-0.5 bg-orange w-8"></div>
-            <div className="h-0.5 bg-orange w-12"></div>
-          </div>
-        </motion.div>
-
-        {/* Content */}
-        <motion.div
-          className="space-y-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <div className="space-y-4">
-            <p className="text-lg text-foreground font-medium text-left">
-              {personalInfo.connectText}
-            </p>
-          </div>
-
-          {/* Contact Methods */}
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              className="bg-card border border-border rounded-xl p-8 space-y-6"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {contactInfo.map((contact) => (
-                <motion.div
-                  key={contact.platform}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group"
-                >
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start p-6 h-auto hover:bg-orange/10 hover:border-orange transition-all duration-300 border border-transparent"
-                    asChild
-                  >
-                    <a
-                      href={contact.url}
-                      target={contact.platform === 'Email' ? '_self' : '_blank'}
-                      rel={contact.platform === 'Email' ? '' : 'noopener noreferrer'}
-                      className="flex items-center space-x-4"
-                    >
-                      <div className="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center text-orange group-hover:bg-orange group-hover:text-white transition-all duration-300">
-                        {getContactIcon(contact.platform)}
-                      </div>
-                      <div className="flex-1 text-left">
-                        <div className="font-semibold text-foreground group-hover:text-orange transition-colors duration-300">
-                          {contact.platform}
-                        </div>
-                        <div className="text-muted-foreground text-sm">
-                          {contact.username}
-                        </div>
-                      </div>
-                      <div className="text-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17L17 7" />
-                          <path d="M7 7h10v10" />
-                        </svg>
-                      </div>
-                    </a>
-                  </Button>
-                </motion.div>
-              ))}
-
-              {/* Other Contact Methods */}
-              <motion.div
-                variants={itemVariants}
-                className="pt-6 border-t border-border"
-              >
-                <Button
-                  variant="outline"
-                  className="w-full border-orange text-orange hover:bg-orange hover:text-white transition-all duration-300"
-                  asChild
-                >
-                  <a href="#" className="flex items-center justify-center space-x-2">
-                    <span>Home</span>
-                  </a>
-                </Button>
-              </motion.div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Background decoration */}
-        <div className="absolute top-20 right-20 opacity-5 pointer-events-none">
+    <section id="contact" className="py-20 relative overflow-hidden">
+      <div className="container mx-auto px-6 max-w-7xl">
+        {/* Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            className="text-8xl"
+            className="absolute top-20 left-10 w-72 h-72 bg-orange/5 rounded-full blur-3xl"
             animate={{
-              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
             }}
             transition={{
-              duration: 20,
+              duration: 8,
               repeat: Infinity,
-              ease: 'linear' as const,
+              ease: "easeInOut"
             }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
+            animate={{
+              scale: [1.1, 1, 1.1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 3
+            }}
+          />
+        </div>
+
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.div
+            className="inline-flex items-center space-x-2 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            📧
+            <div className="w-12 h-12 bg-gradient-to-br from-orange to-orange/80 rounded-2xl flex items-center justify-center">
+              <MessageCircle className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold">
+              <span className="text-orange">#</span>contact
+            </h2>
+          </motion.div>
+
+          <motion.p
+            className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            {personalInfo.connectText}
+          </motion.p>
+
+          {/* Decorative line */}
+          <motion.div
+            className="flex items-center justify-center space-x-2 mt-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <motion.div
+              className="h-1 bg-gradient-to-r from-transparent via-orange to-transparent rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: 200 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            />
+          </motion.div>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column - Contact Methods */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-2">
+                Let&apos;s <span className="text-orange">Connect</span>
+              </h3>
+              <p className="text-muted-foreground">
+                Choose your preferred way to reach out
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {contactMethods.map((contact, index) => (
+                <motion.div
+                  key={contact.platform}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className={`group cursor-pointer transition-all duration-300 hover:shadow-lg ${contact.priority === 'high' ? 'border-orange/30 bg-orange/5' : 'border-border/50'
+                    }`}>
+                    <CardContent className="p-6">
+                      <div className="flex items-center space-x-4">
+                        <motion.div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${contact.color} flex items-center justify-center text-white shadow-lg`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {contact.icon}
+                        </motion.div>
+
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2">
+                            <h4 className="font-semibold text-lg">{contact.platform}</h4>
+                            {contact.priority === 'high' && (
+                              <motion.div
+                                className="px-2 py-1 bg-orange/20 text-orange text-xs rounded-full font-medium"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.5 }}
+                              >
+                                Preferred
+                              </motion.div>
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-1">{contact.description}</p>
+                          <p className="text-sm font-mono bg-muted px-2 py-1 rounded inline-block">
+                            {contact.username}
+                          </p>
+                        </div>
+
+                        <div className="flex space-x-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="group-hover:border-orange group-hover:text-orange transition-all duration-300"
+                            asChild
+                          >
+                            <a
+                              href={contact.url}
+                              target={contact.platform === 'Email' ? '_self' : '_blank'}
+                              rel={contact.platform === 'Email' ? '' : 'noopener noreferrer'}
+                              className="flex items-center space-x-1"
+                            >
+                              <span>Open</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </Button>
+
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleCopy(contact.username, contact.platform)}
+                            className="hover:bg-orange/10 hover:text-orange transition-all duration-300"
+                          >
+                            <AnimatePresence mode="wait">
+                              {copiedText === contact.platform ? (
+                                <motion.div
+                                  key="check"
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  exit={{ scale: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <Check className="w-4 h-4 text-green-500" />
+                                </motion.div>
+                              ) : (
+                                <motion.div
+                                  key="copy"
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  exit={{ scale: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <Copy className="w-4 h-4" />
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Social Links */}
+            <motion.div
+              className="mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold mb-4">Follow me on</h4>
+              <div className="flex space-x-3">
+                {socialPlatforms.map((social, index) => (
+                  <motion.div
+                    key={social.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className={`${social.color} transition-all duration-300 border-2`}
+                      asChild
+                    >
+                      <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2"
+                      >
+                        {social.icon}
+                        <span>{social.name}</span>
+                      </a>
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="border-2 border-orange/20 bg-gradient-to-br from-card to-card/50 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold mb-2">
+                    Send a <span className="text-orange">Message</span>
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Have a project in mind? Let&apos;s discuss it!
+                  </p>
+                </div>
+
+                <form onSubmit={handleFormSubmit} className="space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    <label className="block text-sm font-medium mb-2">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:border-orange focus:ring-2 focus:ring-orange/20 transition-all duration-300"
+                      placeholder="Enter your name"
+                      required
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <label className="block text-sm font-medium mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:border-orange focus:ring-2 focus:ring-orange/20 transition-all duration-300"
+                      placeholder="your.email@example.com"
+                      required
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    <label className="block text-sm font-medium mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={5}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:border-orange focus:ring-2 focus:ring-orange/20 transition-all duration-300 resize-none"
+                      placeholder="Tell me about your project..."
+                      required
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-orange hover:bg-orange/90 text-white py-3 text-lg font-medium transition-all duration-300 group"
+                    >
+                      {isSubmitting ? (
+                        <motion.div
+                          className="flex items-center space-x-2"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                          <motion.div
+                            className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          <span>Sending...</span>
+                        </motion.div>
+                      ) : (
+                        <div className="flex items-center justify-center space-x-2">
+                          <span>Send Message</span>
+                          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                        </div>
+                      )}
+                    </Button>
+                  </motion.div>
+                </form>
+              </CardContent>
+            </Card>
+
+            {/* Quick Info */}
+            <motion.div
+              className="mt-8 grid grid-cols-3 gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <motion.div
+                className="text-center p-4 rounded-lg bg-muted/50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Clock className="w-6 h-6 text-orange mx-auto mb-2" />
+                <p className="text-sm font-medium">24h</p>
+                <p className="text-xs text-muted-foreground">Response</p>
+              </motion.div>
+
+              <motion.div
+                className="text-center p-4 rounded-lg bg-muted/50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <MapPin className="w-6 h-6 text-orange mx-auto mb-2" />
+                <p className="text-sm font-medium">GMT+7</p>
+                <p className="text-xs text-muted-foreground">Cambodia</p>
+              </motion.div>
+
+              <motion.div
+                className="text-center p-4 rounded-lg bg-muted/50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Zap className="w-6 h-6 text-orange mx-auto mb-2" />
+                <p className="text-sm font-medium">Active</p>
+                <p className="text-xs text-muted-foreground">Available</p>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <Card className="border-2 border-orange/30 bg-gradient-to-r from-orange/5 via-transparent to-orange/5 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <motion.div
+                className="flex items-center justify-center space-x-2 mb-4"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Heart className="w-6 h-6 text-orange" />
+                <Star className="w-6 h-6 text-orange" />
+                <Heart className="w-6 h-6 text-orange" />
+              </motion.div>
+              <h3 className="text-2xl font-bold mb-2">
+                Ready to work together?
+              </h3>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                {personalInfo.callToAction}
+              </p>
+              <Button
+                size="lg"
+                className="bg-orange hover:bg-orange/90 text-white px-8 py-3 text-lg font-medium group"
+                asChild
+              >
+                <a href="mailto:umlyrithyreach@gmail.com" className="flex items-center space-x-2">
+                  <Mail className="w-5 h-5" />
+                  <span>Start a Project</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );
