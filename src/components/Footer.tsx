@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
           viewport={{ once: true }}
         >
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Nash. Built with{' '}
+            © {new Date().getFullYear()} Reach. Built with{' '}
             <span className="text-orange">❤️</span> using{' '}
             <span className="text-orange font-medium">Next.js</span>,{' '}
             <span className="text-orange font-medium">TypeScript</span>, and{' '}

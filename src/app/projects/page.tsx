@@ -19,21 +19,31 @@ const ProjectsPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('All');
 
-    // Get unique categories and statuses
-    const categories = ['All', ...new Set(projects.map(p =>
-        Array.isArray(p.category) ? p.category[0] : (p.category || 'Web App')
-    ))];
+    // Get unique categories - handle both array and string categories
+    const categories = ['All', ...new Set(
+        projects.flatMap(p =>
+            Array.isArray(p.category) ? p.category : [p.category || 'Web App']
+        )
+    )];
+
     const statuses = ['All', ...new Set(projects.map(p => p.status).filter(Boolean))];
 
-    // Filter projects
+    // Filter projects with improved category matching
     const filteredProjects = projects.filter(project => {
         const matchesStatus = statusFilter === 'All' || project.status === statusFilter;
-        const matchesCategory = filter === 'All' ||
-            (Array.isArray(project.category) ? project.category[0] : (project.category || 'Web App')) === filter;
+
+        // Check if any category in the project matches the selected filter
+        const projectCategories = Array.isArray(project.category)
+            ? project.category
+            : [project.category || 'Web App'];
+
+        const matchesCategory = filter === 'All' || projectCategories.includes(filter);
+
         const matchesSearch = searchTerm === '' ||
             project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+
         return matchesCategory && matchesStatus && matchesSearch;
     });
 

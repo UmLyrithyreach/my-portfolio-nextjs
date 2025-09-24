@@ -18,7 +18,18 @@ export const projects: Project[] = [
     id: "portfolio-2",
     title: "Portfolio 2.0",
     description: "The portfolio you are viewing right now",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "ShadCN"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "ShadCN",
+      "Radix UI",
+      "EmailJS",
+      "Dynamic Text Animation",
+      "Git",
+      "GitHub",
+    ],
     image: "/projects/portfolio.png",
     liveUrl: "https://your-portfolio-url.com",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
@@ -34,10 +45,10 @@ export const projects: Project[] = [
   {
     id: "automata-simulation",
     title: "Automata Simulation",
-    description: "Welcome to the Automata Simulator, a full-stack web application designed to simulate and visualize Finite Automata. This comprehensive tool allows you to create, edit, and test both Deterministic Finite Automata (DFA) and Non-Deterministic Finite Automata (NFA).",
+    description:
+      "Welcome to the Automata Simulator, a full-stack web application designed to simulate and visualize Finite Automata. This comprehensive tool allows you to create, edit, and test both Deterministic Finite Automata (DFA) and Non-Deterministic Finite Automata (NFA).",
     image: "/projects/automata-project.png",
-    technologies: 
-    [
+    technologies: [
       // FrontEnd
       "React",
       "Vite",
@@ -51,16 +62,17 @@ export const projects: Project[] = [
       "Axios",
       "SQLite",
       "Sequelize",
-        // CPP Areas
-        "C++17",
-        "nlohmann/json",
-      
+      // CPP Areas
+      "C++",
+      "nlohmann/json",
+
       // Version Control
       "Git",
       "GitHub",
     ],
-    githubUrl: "https://github.com/ShurikenBy6YoungTechStudents/automata-project.git",
-    category: ["Full-Stack Web Application"],
+    githubUrl:
+      "https://github.com/ShurikenBy6YoungTechStudents/automata-project.git",
+    category: ["Full-Stack Web Application", "School Project"],
     status: "Completed",
     features: [
       "A full-stack web application that simulates and visualizes Finite Automata.",
@@ -72,43 +84,44 @@ export const projects: Project[] = [
   },
 
   {
-  id: "KhodKquiz",
-  title: "KhodKquiz",
-  description: "Academic Project - Full-Stack Web Development Cambodia Academy of Digital Technology. A comprehensive, enterprise-grade quiz application demonstrating modern web development practices, advanced database design, and professional software architecture. Built with React 19, Node.js, and PostgreSQL, featuring complete role-based access control, real-time analytics, and advanced admin management capabilities.",
-  image: "/projects/KhodKquiz.png",
-  technologies: [
-    // Frontend
-    "React", 
-    "Tailwind CSS", 
-    "Framer Motion",
-    "React Router",
-    "Axios",
-    "Lucide React",
-    
-    // Backend
-    "Node.js",
-    "Express.js", 
-    "PostgreSQL", 
-    "Sequelize", 
-    "JWT", 
-    "bcrypt",
-    
-    // Development
-    "Vite",
-    "ESLint"
-  ],
-  githubUrl: "https://github.com/PhaySometh/KhodKquiz.git",
-  category: ["Full-Stack Web Application"],
-  // Optional additional fields based on your architecture
-  features: [
-    "User Authentication & Authorization",
-    "Real-time Stock Management",
-    "PostgreSQL Database Integration", 
-    "Responsive Design",
-    "RESTful API Architecture"
-  ],
-  status: "Completed" // or "In Development"
-}
+    id: "KhodKquiz",
+    title: "KhodKquiz",
+    description:
+      "Academic Project - Full-Stack Web Development Cambodia Academy of Digital Technology. A comprehensive, enterprise-grade quiz application demonstrating modern web development practices, advanced database design, and professional software architecture. Built with React 19, Node.js, and PostgreSQL, featuring complete role-based access control, real-time analytics, and advanced admin management capabilities.",
+    image: "/projects/KhodKquiz.png",
+    technologies: [
+      // Frontend
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Router",
+      "Axios",
+      "Lucide React",
+
+      // Backend
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Sequelize",
+      "JWT",
+      "bcrypt",
+
+      // Development
+      "Vite",
+      "ESLint",
+    ],
+    githubUrl: "https://github.com/PhaySometh/KhodKquiz.git",
+    category: ["Full-Stack Web Application", "School Project"],
+    // Optional additional fields based on your architecture
+    features: [
+      "User Authentication & Authorization",
+      "Real-time Stock Management",
+      "PostgreSQL Database Integration",
+      "Responsive Design",
+      "RESTful API Architecture",
+    ],
+    status: "Completed", // or "In Development"
+  },
 ];
 
 export const skills: Skill[] = [
@@ -168,10 +181,11 @@ export const personalInfo = {
     "I'm a sophomore of Computer Science specialized in Software Development. I'm capable of creating Frond End designs and do a FULL stack projects. (Currently studying on PERN AND MERN stacks)",
   callToAction: "Let's create a user-friendly website together!",
   aboutText: `
-    I'm an aspiring web developer with a strong foundation in using React and Next js, while also some knowledge in 
-    <span class="text-orange-500">PERN</span> AND <span class="text-orange-500">MERN</span> stacks) stacks. 
-    Recently I have built a full stacks project using React, Next js, Node js, Express js, and PostgreSQL. I'm eager 
-    to make use of my knowledge in a real-world projects and grow into a confident web developer.
+    As a web development student at <span class="text-blue-600 text-xl font-bold">CADT</span> (Cambodia Academy of Digital Technology), 
+    I've built a solid expertise in React and Next.js, complemented by hands-on experience with 
+    <span class="text-orange-500">PERN</span> and <span class="text-orange-500">MERN</span> stacks. My recent full-stack 
+    project showcases my proficiency in React, Next.js, Node.js, Express.js, and PostgreSQL. I'm excited to leverage 
+    these skills in professional environments and continue growing as a versatile web developer.
     `,
   connectText:
     "I'm looking forward to being a part of your team! Let me help you develop your ideas into an internet reality.",
