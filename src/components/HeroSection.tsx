@@ -1,15 +1,59 @@
 "use client"
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { personalInfo } from '@/data/portfolio';
-import Image from 'next/image';
 import { useInMobile } from './hooks/useInMobile';
-import Typewriter from "typewriter-effect";
 import LandingCard from './landingProfile/landingCard';
 
 export const HeroSection: React.FC = () => {
-  const isMobile = useInMobile(768); // Use mobile breakpoint at 768px
+  const isMobile = useInMobile(768);
+  
+  // Custom typewriter effect using React state
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+  
+  const fullText = personalInfo.title;
+  const typingSpeed = 100;
+  const deletingSpeed = 50;
+  const pauseDuration = 2000;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (currentIndex < fullText.length) {
+          setDisplayText(fullText.substring(0, currentIndex + 1));
+          setCurrentIndex(currentIndex + 1);
+        } else {
+          // Finished typing, wait then start deleting
+          setTimeout(() => setIsDeleting(true), pauseDuration);
+        }
+      } else {
+        // Deleting
+        if (currentIndex > 0) {
+          setDisplayText(fullText.substring(0, currentIndex - 1));
+          setCurrentIndex(currentIndex - 1);
+        } else {
+          // Finished deleting, start typing again
+          setIsDeleting(false);
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, isDeleting, fullText]);
+
+  // Cursor blinking effect
+  useEffect(() => {
+    const cursorTimer = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorTimer);
+  }, []);
 
   return (
     <section
@@ -45,17 +89,11 @@ export const HeroSection: React.FC = () => {
               >
                 {`Hey, I'm ${personalInfo.name}, an `}
                 <span className="block mt-2">intuitive</span>
-                <span className="text-orange font-bold block mt-2">
-                  <Typewriter
-                    options={{
-                      strings: [personalInfo.title],
-                      autoStart: true,
-                      loop: true,
-                      delay: 80,
-                      cursor: "_",
-                      deleteSpeed: 30,
-                    }}
-                  />
+                <span className="text-orange font-bold block mt-2 min-h-[1.2em]">
+                  {displayText}
+                  <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+                    _
+                  </span>
                 </span>
               </motion.h1>
 
@@ -88,7 +126,7 @@ export const HeroSection: React.FC = () => {
             </motion.div>
           </div>
         ) : (
-          // Desktop layout - side by side (keep as is but minor adjustments)
+          // Desktop layout - side by side
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 order-2 lg:order-1">
             {/* Text Content */}
             <motion.div
@@ -104,17 +142,11 @@ export const HeroSection: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 {`Hey, I'm ${personalInfo.name}, an intuitive `}
-                <span className="text-orange font-bold">
-                  <Typewriter
-                    options={{
-                      strings: [personalInfo.title],
-                      autoStart: true,
-                      loop: true,
-                      delay: 80,
-                      cursor: "_",
-                      deleteSpeed: 30,
-                    }}
-                  />
+                <span className="text-orange font-bold min-h-[1.2em] inline-block">
+                  {displayText}
+                  <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+                    _
+                  </span>
                 </span>
               </motion.h1>
 
