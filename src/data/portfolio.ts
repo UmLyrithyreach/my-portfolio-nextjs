@@ -31,7 +31,7 @@ export const projects: Project[] = [
       "GitHub",
     ],
     image: "/projects/portfolio.png",
-    liveUrl: "https://your-portfolio-url.com",
+    liveUrl: "https://vercel.com/umlyrithyreachs-projects/rithyreach-portfolio",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
     category: ["Frontend Web Application"],
     status: "In Progress",
