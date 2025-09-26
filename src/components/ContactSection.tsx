@@ -6,10 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { contactInfo, personalInfo, socialLinks } from '@/data/portfolio';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import emailjs from '@emailjs/browser';
-
 
 import {
   Mail,
@@ -26,7 +23,9 @@ import {
   ArrowRight,
   Zap,
   Heart,
-  Star
+  Star,
+  Hash,
+  Users
 } from 'lucide-react';
 
 interface ContactMethod {
@@ -65,23 +64,19 @@ const ContactSection: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    emailjs.init(process.env.EMAILJS_PUBLIC_KEY!);
-  }, []);
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Check environment variables first
-    const serviceId = process.env.EMAILJS_SERVICE_ID;
-    const templateId = process.env.EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+    // Check environment variables
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    console.log('Environment check:', {
-      serviceId: serviceId ? '✅ Set' : '❌ Missing',
-      templateId: templateId ? '✅ Set' : '❌ Missing',
-      publicKey: publicKey ? '✅ Set' : '❌ Missing'
+    console.log('Environment variables check:', {
+      serviceId: serviceId || 'Missing',
+      templateId: templateId || 'Missing',
+      publicKey: publicKey || 'Missing'
     });
 
     if (!serviceId || !templateId || !publicKey) {
@@ -91,51 +86,32 @@ const ContactSection: React.FC = () => {
     }
 
     try {
-      console.log('Sending email with data:', {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message.substring(0, 50) + '...'
-      });
+      // Initialize EmailJS with public key
+      emailjs.init(publicKey);
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Umlyrithy',
+        reply_to: formData.email
+      };
+
+      console.log('Sending email with params:', templateParams);
 
       const result = await emailjs.send(
         serviceId,
         templateId,
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          sent_date: new Date().toLocaleString()
-        },
-        publicKey
+        templateParams
       );
 
-      console.log('✅ EmailJS Success:', result);
-      alert('✅ Message sent successfully!');
+      console.log('✅ Email sent successfully:', result);
+      alert('✅ Message sent successfully! I\'ll get back to you soon.');
       setFormData({ name: '', email: '', message: '' });
 
     } catch (error: any) {
-      console.error('❌ EmailJS Error Details:', {
-        error: error,
-        message: error?.message || 'Unknown error',
-        text: error?.text || 'No error text',
-        status: error?.status || 'No status'
-      });
-
-      let errorMessage = 'Failed to send message. ';
-
-      if (error?.status === 400) {
-        errorMessage += 'Invalid request. Check your EmailJS template variables.';
-      } else if (error?.status === 403) {
-        errorMessage += 'Access denied. Check your EmailJS public key.';
-      } else if (error?.text) {
-        errorMessage += error.text;
-      } else if (error?.message) {
-        errorMessage += error.message;
-      } else {
-        errorMessage += 'Please check your internet connection and try again.';
-      }
-
-      alert(`❌ ${errorMessage}`);
+      console.error('❌ EmailJS Error:', error);
+      alert('❌ Failed to send message. Please try again or contact me directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -153,13 +129,13 @@ const ContactSection: React.FC = () => {
       case 'telegram':
         return <Send className="w-5 h-5" />;
       case 'discord':
-        return <FontAwesomeIcon icon={faDiscord} className="w-5 h-5" />;
+        return <Hash className="w-5 h-5" />; // Using Hash instead of FontAwesome
       case 'email':
         return <Mail className="w-5 h-5" />;
       case 'facebook':
-        return <FontAwesomeIcon icon={faFacebook} className="w-5 h-5" />;
+        return <Users className="w-5 h-5" />; // Using Users instead of FontAwesome
       case 'instagram':
-        return <FontAwesomeIcon icon={faInstagram} className="w-5 h-5" />;
+        return <MessageCircle className="w-5 h-5" />; // Using MessageCircle instead of FontAwesome
       default:
         return <Phone className="w-5 h-5" />;
     }
@@ -229,9 +205,9 @@ const ContactSection: React.FC = () => {
       case 'linkedin':
         return <Linkedin className="w-4 h-4" />;
       case 'facebook':
-        return <FontAwesomeIcon icon={faFacebook} className="w-4 h-4" />;
+        return <Users className="w-4 h-4" />; // Using Users instead of FontAwesome
       case 'instagram':
-        return <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />;
+        return <MessageCircle className="w-4 h-4" />; // Using MessageCircle instead of FontAwesome
       default:
         return <Github className="w-4 h-4" />;
     }
@@ -261,6 +237,15 @@ const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
+        {/* Debug Environment Variables - Remove this after testing */}
+        <div className="mb-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+          <h4 className="font-bold mb-2">Environment Variables Debug:</h4>
+          <p>Service ID: {process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? '✅ Set' : '❌ Missing'}</p>
+          <p>Template ID: {process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? '✅ Set' : '❌ Missing'}</p>
+          <p>Public Key: {process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? '✅ Set' : '❌ Missing'}</p>
+        </div>
+
+        {/* Rest of your component remains the same... */}
         {/* Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
