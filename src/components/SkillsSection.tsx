@@ -6,17 +6,17 @@ import Image from 'next/image';
 
 const SkillsSection: React.FC = () => {
   const skills = [
-    { tool: "MongoDB", image: "/mognologo.png", category: "Database", proficiency: 50 },
-    { tool: "PostgreSQL", image: "/Postgresql_elephant.svg", category: "Database", proficiency: 90 },
-    { tool: "MySQL", image: "/mysql.png", category: "Database", proficiency: 93 },
-    { tool: "Express.js", image: "/expresslogo.png", category: "Backend", proficiency: 70 },
-    { tool: "Node.js", image: "/nodelogo.png", category: "Backend", proficiency: 70 },
-    { tool: "React", image: "/reactlogo.svg", category: "Frontend", proficiency: 90 },
-    { tool: "Next.js", image: "/next-js.svg", category: "Frontend", proficiency: 85 },
-    { tool: "Tailwind CSS", image: "/tailwindlogo.png", category: "Styling", proficiency: 92 },
-    { tool: "CSS3", image: "/CSS3.png", category: "Styling", proficiency: 88 },
-    { tool: "Git", image: "/git.png", category: "Tools", proficiency: 80 },
-    { tool: "GitHub", image: "/github.png", category: "Tools", proficiency: 95 },
+    { tool: "MongoDB", image: "/icons/mognologo.png", category: "Database", proficiency: 50 },
+    { tool: "PostgreSQL", image: "/icons/Postgresql_elephant.svg", category: "Database", proficiency: 90 },
+    { tool: "MySQL", image: "/icons/mysql.png", category: "Database", proficiency: 93 },
+    { tool: "Express.js", image: "/icons/expresslogo.png", category: "Backend", proficiency: 70 },
+    { tool: "Node.js", image: "/icons/nodelogo.png", category: "Backend", proficiency: 70 },
+    { tool: "React", image: "/icons/reactlogo.svg", category: "Frontend", proficiency: 90 },
+    { tool: "Next.js", image: "/icons/next-js.svg", category: "Frontend", proficiency: 85 },
+    { tool: "Tailwind CSS", image: "/icons/tailwindlogo.png", category: "Styling", proficiency: 92 },
+    { tool: "CSS3", image: "/icons/CSS3.png", category: "Styling", proficiency: 88 },
+    { tool: "Git", image: "/icons/git.png", category: "Tools", proficiency: 80 },
+    { tool: "GitHub", image: "/icons/github.png", category: "Tools", proficiency: 95 },
   ];
 
   const categories = ["All", "Frontend", "Backend", "Database", "Styling", "Tools"];

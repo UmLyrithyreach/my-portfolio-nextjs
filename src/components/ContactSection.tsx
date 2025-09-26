@@ -66,7 +66,7 @@ const ContactSection: React.FC = () => {
   };
 
   React.useEffect(() => {
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+    emailjs.init(process.env.EMAILJS_PUBLIC_KEY!);
   }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -74,9 +74,9 @@ const ContactSection: React.FC = () => {
     setIsSubmitting(true);
 
     // Check environment variables first
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.EMAILJS_SERVICE_ID;
+    const templateId = process.env.EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.EMAILJS_PUBLIC_KEY;
 
     console.log('Environment check:', {
       serviceId: serviceId ? '✅ Set' : '❌ Missing',
@@ -304,9 +304,6 @@ const ContactSection: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-orange to-orange/80 rounded-2xl flex items-center justify-center">
-              <MessageCircle className="w-6 h-6 text-white" />
-            </div>
             <h2 className="text-4xl md:text-5xl font-bold">
               <span className="text-orange">#</span>contact
             </h2>
