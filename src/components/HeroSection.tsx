@@ -8,13 +8,13 @@ import LandingCard from './landingProfile/landingCard';
 
 export const HeroSection: React.FC = () => {
   const isMobile = useInMobile(768);
-  
+
   // Custom typewriter effect using React state
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
-  
+
   const fullText = personalInfo.title;
   const typingSpeed = 100;
   const deletingSpeed = 50;
@@ -141,7 +141,9 @@ export const HeroSection: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                {`Hey, I'm ${personalInfo.name}, an intuitive `}
+                <span className="block mt-2">
+                  {`Hey, I'm ${personalInfo.name}, an intuitive `}
+                </span>
                 <span className="text-orange font-bold min-h-[1.2em] inline-block">
                   {displayText}
                   <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>

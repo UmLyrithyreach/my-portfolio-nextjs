@@ -4,6 +4,12 @@ export interface NavigationItem {
   label: string;
 }
 
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface Project {
   id: string;
   title: string;

@@ -4,6 +4,7 @@ import {
   Skill,
   ContactInfo,
   SocialLink,
+  Achievement,
 } from "@/types";
 
 export const navigationItems: NavigationItem[] = [
@@ -12,6 +13,19 @@ export const navigationItems: NavigationItem[] = [
   { name: "works", href: "#works", label: "Works" },
   { name: "contact", href: "#contact", label: "Contact" },
 ];
+
+export const achievements: Achievement[] = [
+  {
+    id: "achievement-1",
+    title: "Completed 100+ Projects",
+    description: "Successfully completed a diverse range of projects, including web applications, mobile apps, and software tools.",
+  },
+  {
+    id: "achievement-2",
+    title: "Received 5+ Awards",
+    description: "Awards for outstanding performance in various projects and competitions.",
+  },
+]
 
 export const projects: Project[] = [
   {
@@ -31,7 +45,7 @@ export const projects: Project[] = [
       "GitHub",
     ],
     image: "/projects/portfolio.png",
-    liveUrl: "https://vercel.com/umlyrithyreachs-projects/rithyreach-portfolio",
+    liveUrl: "https://rithyreach-portfolio.vercel.app",
     githubUrl: "https://github.com/UmLyrithyreach/my-portfolio-nextjs",
     category: ["Frontend Web Application"],
     status: "In Progress",
