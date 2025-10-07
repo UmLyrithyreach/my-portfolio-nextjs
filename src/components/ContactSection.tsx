@@ -94,7 +94,12 @@ const ContactSection: React.FC = () => {
         from_email: formData.email,
         message: formData.message,
         to_name: 'Umlyrithy',
-        reply_to: formData.email
+        reply_to: formData.email,
+        // Additional parameter variations for better compatibility
+        user_name: formData.name,
+        user_email: formData.email,
+        name: formData.name,
+        email: formData.email
       };
 
       console.log('Sending email with params:', templateParams);
