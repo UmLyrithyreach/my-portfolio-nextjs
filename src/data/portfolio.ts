@@ -136,6 +136,161 @@ export const projects: Project[] = [
     ],
     status: "Completed", // or "In Development"
   },
+  {
+    id: "chlartTask",
+    title: "Chlart Task Management",
+    description:
+      "A task management system for small businesses to manage their tasks and projects efficiently.",
+    image: "/projects/ChlartHero.png",
+    technologies: [
+      // Frontend
+      "React",
+      "Tailwind CSS",
+      "Lucide React",
+
+      // Development
+      "Vite",
+      "ESLint",
+    ],
+    githubUrl: "https://github.com/PhaySometh/Cadt_Y2_SE_G2_FE_Final_Project",
+    category: ["Frontend Web Application", "School Project"],
+    // Optional additional fields based on your architecture
+    features: [
+      "User Authentication & Authorization",
+      "Real-time Stock Management",
+      "PostgreSQL Database Integration",
+      "Responsive Design",
+      "RESTful API Architecture",
+    ],
+    status: "Completed", // or "In Development"
+  },
+  {
+    id: "hostpital management",
+    title: "Hospital Management System",
+    description:
+      "A comprehensive command-line Hospital Management System built with Dart that manages appointments, users, and hospital operations efficiently. Features multi-role authentication for patients, doctors, and administrators with appointment scheduling and management capabilities.",
+    image: "/projects/hospital-management.png",
+    technologies: [
+      "Dart",
+      "UUID",
+      "JSON File Storage",
+      "Test Framework",
+    ],
+    githubUrl: "https://github.com/Ming-99s/hostpital-managment.git",
+    category: ["School Project"],
+    // Optional additional fields based on your architecture
+    features: [
+      "Multi-role Authentication: Support for Patient, Doctor, and Admin users",
+      "User Registration & Profile Management: Secure registration and profile management system",
+      "Appointment Scheduling: Patients can book appointments with available doctors",
+      "Appointment Tracking: Monitor appointments with multiple statuses (pending, approved, rejected, canceled)",
+      "Role-Based Dashboards: Customized dashboards for each user type",
+      "Doctor Availability Management: Doctors can manage their schedules and approve/reject appointments",
+      "Administrative Oversight: Admins can manage all users and view system statistics",
+      "JSON-based Data Persistence: File-based storage for users and appointments",
+      "Comprehensive Unit Tests: Full test coverage for services, repositories, and domain logic",
+    ],
+    status: "Completed", // or "In Development"
+  },
+  {
+    id: "clothes-store-management",
+    title: "Clothes Store Management System",
+    description:
+      "A comprehensive Java-based Clothes Store Management System implemented as an object-oriented project. The system models customers, orders, clothes inventory, suppliers, and staff with complete CRUD operations and database persistence using MariaDB/MySQL.",
+    image: "/projects/clothes-store.png",
+    technologies: [
+      "Java",
+      "MariaDB",
+      "JDBC",
+      "OOP",
+      "Maven",
+    ],
+    githubUrl: "https://github.com/UmLyrithyreach/GroupProjectOOP-JAVA-",
+    category: ["School Project", "Group Project"],
+    // Optional additional fields based on your architecture
+    features: [
+      "Customer Management: Add, update, and view customer details with contact information",
+      "Order Processing: Create and track orders with status updates and payment management",
+      "Inventory Management: Comprehensive clothes inventory with categorization and stock tracking",
+      "Supplier Management: Store supplier details and track supplied products",
+      "Staff Management: Employee information and role-based access control",
+      "Database Integration: Full CRUD operations with MariaDB/MySQL database",
+      "Data Persistence: SQL-based storage with proper schema design",
+      "Business Logic Layer: Service classes for validation and transaction coordination",
+      "MVC Architecture: Separation of concerns with Model-DAO-Service-UI layers",
+    ],
+    status: "Completed", // or "In Development"
+  },
+  {
+    id: "intro to cyber",
+    title: "Introducing to CyberSecurity Project",
+    description:
+      "A Python-based security tool designed to protect your computer against spyware, ransomware, worms, and other threats. This project demonstrates malware detection and prevention techniques, specifically targeting common malicious behaviors such as keyloggers, screen lockers, and data exfiltration.",
+    technologies: [
+      "Python",
+      "PyQt5",
+      "watchdog",
+      "psutil",
+      "pywin32",
+      "GUI Development",
+      "Windows Security",
+      "Cybersecurity",
+    ],
+    githubUrl: "https://github.com/SeaHuyty/rnicrosoft-service",
+    category: ["Security Tool", "Desktop Application", "School Project"],
+    features: [
+      "Real-Time Threat Detection: Keylogger detection, screenshot/webcam spyware detection, Chrome password stealer detection",
+      "Telegram data exfiltration detection and screen locker ransomware detection",
+      "Registry persistence detection (e.g., WindowsSystemUpdate) and USB worm detection",
+      "Real-time file monitoring and manual scanning capabilities",
+      "Emergency removal tools and quarantine system for malicious files",
+      "PyQt5-based GUI with dashboard for easy threat management",
+      "Simulates detection of 28+ different threat patterns",
+    ],
+    status: "Completed",
+  },
+  {
+    id: "cadt-y2-se-g2-frontend",
+    title: "CADT Y2 SE G2 - Frontend Final Project",
+    description:
+      "A modern frontend application built with React and Vite, featuring a comprehensive UI component library and responsive design. This full-featured React application showcases modern web development practices with HMR support for rapid development iteration.",
+    liveUrl: "https://cadt-y2-se-g2-fe-final-project.vercel.app",
+    technologies: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "HeroUI",
+      "Headless UI",
+      "Heroicons",
+      "Lucide React",
+      "DaisyUI",
+      "React Router DOM",
+      "Mantine",
+      "Axios",
+      "Express.js",
+      "CORS",
+    ],
+    githubUrl: "https://github.com/PhaySometh/Cadt_Y2_SE_G2_FE_Final_Project",
+    category: ["Frontend Web Application", "School Project"],
+    features: [
+      "Modern React 19 with Vite for optimized development and build",
+      "Lightning-fast HMR (Hot Module Replacement) for rapid iteration",
+      "Comprehensive UI component library with HeroUI and DaisyUI",
+      "Responsive design with Tailwind CSS utility-first framework",
+      "Client-side routing with React Router DOM",
+      "Icon libraries: Heroicons and Lucide React",
+      "Accessible components with Headless UI integration",
+      "Mantine component library and custom hooks",
+      "Promise-based HTTP requests with Axios",
+      "Express backend with CORS support",
+      "Environment variable management with Dotenv",
+      "ESLint configured with React Hooks linting",
+    ],
+    status: "Completed",
+  },
+  
+  
 ];
 
 export const skills: Skill[] = [

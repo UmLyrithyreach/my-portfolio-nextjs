@@ -41,7 +41,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/next.svg" type="image/svg+xml" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
