@@ -60,42 +60,42 @@ export const projects: Project[] = [
     id: "samki-digital-market",
     title: "Samki Digital Market",
     description:
-      "Capstone Project II - Samki Digital Market is an online market ready for sellers to sell their product online and help them reach a wider customer range for their MSMEs to reach globally large.",
-    image: "",
+      "Capstone Project II - A full-stack multi-vendor e-commerce platform built for the Cambodian skincare market, empowering MSMEs with seller dashboards, AI-powered shopping assistance, bilingual Khmer/English support, and both international (Stripe) and local (Bakong KHQR) payment integration.",
+    image: "/projects/capstone.png",
     technologies: [
       // Frontend
-      "Nextjs",
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
       "Tailwind CSS",
-      "Framer Motion",
-      "",
-      "Axios",
-      "Lucide React",
-
-      // Backend
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "Sequelize",
-      "JWT",
-      "",
-
-      // Development
-      "Vite",
-      "ESLint",
-      ""
+      "shadcn/ui",
+      "Zustand",
+      "Embla Carousel",
+      "Recharts",
+      // Backend & Data
+      "Sanity CMS",
+      "Clerk",
+      "Next.js API Routes",
+      // Payments & Integrations
+      "Stripe",
+      "Bakong KHQR",
+      "Telegram Bot API",
+      "Vercel AI SDK",
     ],
     githubUrl: "https://github.com/YongVuthivathnakk/samki-digital-market-next-app.git",
     category: ["Full-Stack Web Application", "Capstone Project"],
     liveUrl: "https://full-stack-ecommerce-tb3i.vercel.app",
-    // Optional additional fields based on your architecture
     features: [
-      "User Authentication & Authorization",
-      "Real-time Stock Management",
-      // "PostgreSQL Database Integration",
-      "Responsive Design",
-      "RESTful API Architecture",
+      "Multi-vendor marketplace with seller onboarding and approval flow",
+      "Bakong KHQR and Stripe dual payment system",
+      "AI shopping assistant with product search and order lookup",
+      "Real-time seller notifications via Telegram bot",
+      "Bilingual interface (English/Khmer) with USD/KHR currency switching",
+      "Automated payout system with configurable hold period",
+      "Order lifecycle management from purchase to delivery",
+      "Responsive mobile-first design with dark mode support",
     ],
-    status: "In Progress", // or "In Development"
+    status: "Completed",
   },
   {
     id: "automata-simulation",
