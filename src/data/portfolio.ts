@@ -86,6 +86,7 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/YongVuthivathnakk/samki-digital-market-next-app.git",
     category: ["Full-Stack Web Application", "Capstone Project"],
+    liveUrl: "https://full-stack-ecommerce-tb3i.vercel.app",
     // Optional additional fields based on your architecture
     features: [
       "User Authentication & Authorization",
