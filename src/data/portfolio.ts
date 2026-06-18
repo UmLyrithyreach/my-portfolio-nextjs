@@ -29,6 +29,36 @@ export const achievements: Achievement[] = [
 
 export const projects: Project[] = [
   {
+    id: "asip-redesign",
+    title: "ASIP Redesign",
+    description:
+      "A high-fidelity, interactive redesign of the Angkor Social Innovation Park (ASIP) website. Built with premium web animations, the project features smooth scrolling via Lenis, interactive SVG vector illustrations of Angkor Wat, and immersive parallax and swirling image galleries using GSAP and Framer Motion.",
+    image: "/projects/asipredesign.png",
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "GSAP",
+      "Framer Motion",
+      "Anime.js",
+      "Lenis Smooth Scroll",
+      "Lucide React",
+      "Playwright"
+    ],
+    category: ["Frontend Web Application", "Redesign Project", "Own Project"],
+    liveUrl: "https://asip-redesign-eyca.vercel.app/",
+    features: [
+      "Custom interactive SVG vector illustration of Angkor Wat with advanced hover states and animations",
+      "Immersive 3D and parallax scrolling effects using GSAP ScrollTrigger",
+      "Orbiting and swirling ribbon-style interactive photo gallery with mouse interaction",
+      "Ultra-smooth and responsive scrolling experience integrated with Lenis",
+      "Clean, responsive, mobile-first design leveraging Tailwind CSS v4 and modern CSS typography",
+      "Robust end-to-end testing and quality assurance written using Playwright"
+    ],
+    status: "In Progress",
+  },
+  {
     id: "portfolio-2",
     title: "Portfolio 2.0",
     description: "The portfolio you are viewing right now",
